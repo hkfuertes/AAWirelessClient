@@ -1,4 +1,0 @@
-message WifiStartRequest {
-    required string ip_address = 1;
-    required int32 port = 2;
-}
