@@ -52,7 +52,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 return@setOnPreferenceClickListener true
             }
         }
-        findPreference<Preference>("client_bt_mac")?.also { setBluetoothDevices(it) }
+        findPreference<Preference>("gateway_bt_mac")?.also { setBluetoothDevices(it) }
 
         findPreference<Preference>("bluetooth_permissions")?.apply {
             setOnPreferenceClickListener {
