@@ -1,10 +1,11 @@
-package com.nisargjhaveri.aagateway
+package net.mfuertes.aac.receivers
 
 import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.preference.PreferenceManager
+import net.mfuertes.aac.services.AAWirelessClientService
 
 class BluetoothReceiver : BroadcastReceiver() {
 

@@ -1,4 +1,4 @@
-package com.nisargjhaveri.aagateway
+package net.mfuertes.aac.services
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -13,6 +13,10 @@ import android.os.IBinder
 import android.os.ParcelFileDescriptor
 import android.util.Log
 import androidx.preference.PreferenceManager
+import net.mfuertes.aac.helpers.AABluetoothProfileHandler
+import net.mfuertes.aac.helpers.AndroidAutoHelper
+import net.mfuertes.aac.helpers.BluetoothHandler
+import net.mfuertes.aac.helpers.WifiHotspotHandler
 import java.io.*
 import java.net.*
 

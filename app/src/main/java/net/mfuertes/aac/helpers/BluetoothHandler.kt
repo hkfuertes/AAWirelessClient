@@ -1,4 +1,4 @@
-package com.nisargjhaveri.aagateway
+package net.mfuertes.aac.helpers
 
 import android.Manifest
 import android.bluetooth.*

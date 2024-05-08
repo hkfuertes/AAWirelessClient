@@ -24,7 +24,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.nisargjhaveri.aagateway"
+        applicationId "net.mfuertes.aac"
         minSdk 26
         targetSdk 31
         versionCode findProperty("versionCode") ? (findProperty("versionCode") as int) : 1

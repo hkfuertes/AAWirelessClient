@@ -1,4 +1,4 @@
-package com.nisargjhaveri.aagateway
+package net.mfuertes.aac
 
 import android.app.AlertDialog
 import android.content.ComponentName
@@ -10,6 +10,10 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.preference.*
+import net.mfuertes.aac.helpers.BluetoothHandler
+import net.mfuertes.aac.helpers.WifiClientHandler
+import net.mfuertes.aac.receivers.BluetoothReceiver
+import net.mfuertes.aac.receivers.USBReceiverActivity
 
 class SettingsFragment : PreferenceFragmentCompat() {
     private var mBluetoothHandler: BluetoothHandler? = null

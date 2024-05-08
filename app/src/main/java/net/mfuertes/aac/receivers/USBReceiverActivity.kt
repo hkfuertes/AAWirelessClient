@@ -1,4 +1,4 @@
-package com.nisargjhaveri.aagateway
+package net.mfuertes.aac.receivers
 
 import android.content.Intent
 import android.hardware.usb.UsbAccessory
@@ -6,6 +6,8 @@ import android.hardware.usb.UsbManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.preference.PreferenceManager
+import net.mfuertes.aac.MainActivity
+import net.mfuertes.aac.services.AAGatewayService
 
 class USBReceiverActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
