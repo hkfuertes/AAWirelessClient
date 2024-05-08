@@ -13,7 +13,7 @@ import androidx.preference.*
 import net.mfuertes.aac.helpers.BluetoothHandler
 import net.mfuertes.aac.helpers.WifiClientHandler
 import net.mfuertes.aac.receivers.BluetoothReceiver
-import net.mfuertes.aac.receivers.USBReceiverActivity
+import net.mfuertes.aac.services.AAWirelessClientService
 
 class SettingsFragment : PreferenceFragmentCompat() {
     private var mBluetoothHandler: BluetoothHandler? = null
@@ -39,22 +39,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
-        findPreference<SwitchPreferenceCompat>("is_wireless_client")?.apply {
-            setOnPreferenceChangeListener() { preference, enabled ->
-                if (enabled is Boolean) {
-                    setComponentEnabledForPreference(preference, enabled)
-                }
-                true
-            }
-        }
-        findPreference<SwitchPreferenceCompat>("is_gateway")?.apply {
-            setOnPreferenceChangeListener() { preference, enabled ->
-                if (enabled is Boolean) {
-                    setComponentEnabledForPreference(preference, enabled)
-                }
-                true
-            }
-        }
         findPreference<EditTextPreference>("gateway_wifi_password")?.apply {
             setSummaryProvider {
                 val length = (it as? EditTextPreference)?.text?.length ?: 0
@@ -62,17 +46,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 if (length > 0) "*".repeat(length) else "Not set"
             }
         }
-        findPreference<Preference>("pair_bluetooth")?.apply {
-            intent = Intent(Settings.ACTION_BLUETOOTH_SETTINGS)
+        findPreference<Preference>("start_manual")?.apply {
+            setOnPreferenceClickListener {
+                context.startForegroundService(Intent(context, AAWirelessClientService::class.java))
+                return@setOnPreferenceClickListener true
+            }
         }
-        findPreference<Preference>("gateway_bt_mac")?.also { setBluetoothDevices(it) }
         findPreference<Preference>("client_bt_mac")?.also { setBluetoothDevices(it) }
-        findPreference<Preference>("write_settings_permission")?.apply {
-            intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
-        }
-        findPreference<Preference>("system_alert_window_permission")?.apply {
-            intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
-        }
+
         findPreference<Preference>("bluetooth_permissions")?.apply {
             setOnPreferenceClickListener {
                 mBluetoothHandler?.requestConnectPermissions {
@@ -98,31 +79,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-        findPreference<Preference>("manage_usb_permission")?.apply {
-            setOnPreferenceClickListener {
-                AlertDialog.Builder(context).apply {
-                    title = "Manage USB Permission"
-                    setMessage(
-                        "You need to make this app an system app by moving it to /system/priv-app " +
-                                "and ensure that MANAGE_USB permission is whitelisted. " +
-                                "This would require your device to be rooted."
-                    )
-                    setPositiveButton("Okay") { _, _ ->
-                        // Do nothing
-                    }
-                    show()
-                }
-                true
-            }
-        }
-
-        findPreference<EditTextPreference>("hotspot_password")?.apply {
-            setSummaryProvider {
-                val length = (it as? EditTextPreference)?.text?.length ?: 0
-
-                if (length > 0) "*".repeat(length) else "Not set"
-            }
-        }
 
         context?.also {
             updateSettingsState(it)
@@ -137,19 +93,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    override fun onDisplayPreferenceDialog(preference: Preference) {
-        if (preference.key.equals("gateway_bt_mac") || preference.key.equals("client_bt_mac")) {
-            setBluetoothDevices(preference)
-        }
-
-        super.onDisplayPreferenceDialog(preference)
-    }
-
     private fun updateSettingsState(context: Context) {
         if (mErrorIcon == null) {
-            mErrorIcon = AppCompatResources.getDrawable(context, R.drawable.ic_baseline_error_outline_24)?.apply {
-                setTint(resources.getColor(androidx.appcompat.R.color.error_color_material_light))
-            }
+            mErrorIcon = AppCompatResources.getDrawable(context, R.drawable.ic_baseline_error_outline_24)
         }
 
         if (mDoneIcon == null) {
@@ -191,17 +137,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 "Already granted"
             icon = if (isEnabled) mErrorIcon else if (hasLocationPermissions && hasBackgroundLocationPermissions) mDoneIcon else null
         }
-
-        val manageUSBPermissionGranted = context.checkSelfPermission("android.permission.MANAGE_USB") == PackageManager.PERMISSION_GRANTED
-        findPreference<Preference>("manage_usb_permission")?.apply {
-            isEnabled = !manageUSBPermissionGranted
-            summary = if (!manageUSBPermissionGranted) "Required for fallback to USB Android Auto in gateway mode" else "Already granted"
-            icon = if (manageUSBPermissionGranted) mDoneIcon else null
-        }
-        findPreference<Preference>("usb_fallback")?.apply {
-            isEnabled = manageUSBPermissionGranted
-            summary = if (!manageUSBPermissionGranted) "The app doesn't have the required Manage USB permission" else "When wireless connection fails, start USB Android Auto in this device"
-        }
     }
 
     private fun setBluetoothDevices(preference: Preference) {
@@ -224,28 +159,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     // Cannot handle this preference
                 }
             }
-        }
-    }
-
-    private fun setComponentEnabledForPreference(preference: Preference, enabled: Boolean) {
-        val componentName = when (preference.key) {
-            "is_wireless_client" -> {
-                ComponentName(preference.context, BluetoothReceiver::class.java)
-            }
-            "is_gateway" -> {
-                ComponentName(preference.context, USBReceiverActivity::class.java)
-            }
-            else -> {
-                null
-            }
-        }
-
-        componentName?.let {
-            preference.context.packageManager.setComponentEnabledSetting(
-                it,
-                if (enabled) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP
-            )
         }
     }
 }

@@ -53,20 +53,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AAGateway">
+        android:theme="@style/Theme.AppCompat">
 
-        <activity
-            android:name="net.mfuertes.aac.receivers.USBReceiverActivity"
-            android:showOnLockScreen="true"
-            android:exported="true"
-            android:enabled="false">
-            <intent-filter>
-                <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"/>
-            </intent-filter>
-            <meta-data android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" android:resource="@xml/accessory_filter"/>
-        </activity>
-
-        <service android:name="net.mfuertes.aac.services.AAGatewayService" />
         <service android:name="net.mfuertes.aac.services.AAWirelessClientService" />
 
         <receiver
