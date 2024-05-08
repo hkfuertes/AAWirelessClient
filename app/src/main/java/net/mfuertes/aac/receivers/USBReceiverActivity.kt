@@ -10,10 +10,6 @@ import net.mfuertes.aac.MainActivity
 import net.mfuertes.aac.services.AAGatewayService
 
 class USBReceiverActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_usbreceiver)
-    }
 
     override fun onResume() {
         super.onResume()

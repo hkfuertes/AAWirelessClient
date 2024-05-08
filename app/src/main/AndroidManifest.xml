@@ -56,7 +56,7 @@
         android:theme="@style/Theme.AAGateway">
 
         <activity
-            android:name="com.nisargjhaveri.aac.USBReceiverActivity"
+            android:name="net.mfuertes.aac.receivers.USBReceiverActivity"
             android:showOnLockScreen="true"
             android:exported="true"
             android:enabled="false">
@@ -66,11 +66,11 @@
             <meta-data android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" android:resource="@xml/accessory_filter"/>
         </activity>
 
-        <service android:name="com.nisargjhaveri.aac.AAGatewayService" />
-        <service android:name="com.nisargjhaveri.aac.AAWirelessClientService" />
+        <service android:name="net.mfuertes.aac.services.AAGatewayService" />
+        <service android:name="net.mfuertes.aac.services.AAWirelessClientService" />
 
         <receiver
-            android:name="com.nisargjhaveri.aac.BluetoothReceiver"
+            android:name="net.mfuertes.aac.receivers.BluetoothReceiver"
             android:exported="true"
             android:enabled="false">
             <intent-filter>
@@ -79,7 +79,7 @@
         </receiver>
 
         <activity
-            android:name="com.nisargjhaveri.aac.MainActivity"
+            android:name="net.mfuertes.aac.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
