@@ -1,4 +1,4 @@
-package com.nisargjhaveri.aagateway
+package net.mfuertes.aac.services
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -11,6 +11,8 @@ import android.net.wifi.WifiManager
 import android.os.*
 import android.util.Log
 import androidx.preference.PreferenceManager
+import net.mfuertes.aac.R
+import net.mfuertes.aac.helpers.WifiClientHandler
 import java.lang.Exception
 import java.net.*
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.nisargjhaveri.aagateway">
+    package="net.mfuertes.aac">
 
     <uses-feature
         android:name="android.hardware.bluetooth"
@@ -53,24 +53,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AAGateway">
+        android:theme="@style/Theme.AppCompat">
 
-        <activity
-            android:name=".USBReceiverActivity"
-            android:showOnLockScreen="true"
-            android:exported="true"
-            android:enabled="false">
-            <intent-filter>
-                <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"/>
-            </intent-filter>
-            <meta-data android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" android:resource="@xml/accessory_filter"/>
-        </activity>
-
-        <service android:name=".AAGatewayService" />
-        <service android:name=".AAWirelessClientService" />
+        <service android:name="net.mfuertes.aac.services.AAWirelessClientService" />
 
         <receiver
-            android:name=".BluetoothReceiver"
+            android:name="net.mfuertes.aac.receivers.BluetoothReceiver"
             android:exported="true"
             android:enabled="false">
             <intent-filter>
@@ -79,7 +67,7 @@
         </receiver>
 
         <activity
-            android:name=".MainActivity"
+            android:name="net.mfuertes.aac.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

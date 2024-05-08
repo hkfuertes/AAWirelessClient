@@ -1,12 +1,11 @@
-package com.nisargjhaveri.aagateway
+package net.mfuertes.aac
 
 import android.content.Intent
 import android.net.*
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import net.mfuertes.aac.services.AAWirelessClientService
 
 
 class MainActivity : AppCompatActivity() {

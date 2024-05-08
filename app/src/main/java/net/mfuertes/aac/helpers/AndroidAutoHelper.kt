@@ -1,9 +1,8 @@
-package com.nisargjhaveri.aagateway
+package net.mfuertes.aac.helpers
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.hardware.usb.UsbAccessory
 import android.hardware.usb.UsbManager
