@@ -5,7 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.preference.PreferenceManager
-import net.mfuertes.aac.services.AAWirelessClientService
+import net.mfuertes.aac.services.WifiService
 
 class BluetoothReceiver : BroadcastReceiver() {
 
@@ -17,11 +17,10 @@ class BluetoothReceiver : BroadcastReceiver() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val bluetoothDevice = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
 
-        if (preferences.getBoolean("is_wireless_client", false)
-            && bluetoothDevice != null
+        if (bluetoothDevice != null
             && bluetoothDevice.address.equals(preferences.getString("gateway_bt_mac", null), true)
         ) {
-            context.startForegroundService(Intent(context, AAWirelessClientService::class.java))
+            context.startForegroundService(Intent(context, WifiService::class.java))
         }
     }
 }

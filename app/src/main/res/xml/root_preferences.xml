@@ -10,11 +10,6 @@
             app:key="gateway_wifi_password"
             app:title="Gateway Wifi password" />
 
-        <EditTextPreference
-            app:key="gateway_wifi_bssid"
-            app:title="Gateway Wifi BSSID"
-            app:useSimpleSummaryProvider="true" />
-
         <ListPreference
             app:dialogTitle="Select Gateway Device"
             app:key="gateway_bt_mac"
@@ -37,7 +32,7 @@
 
     <PreferenceCategory app:title="Common settings">
         <Preference
-            android:summary="Manually start Android Auto Client."
+            android:summary="Manually start Android Auto Client"
             app:icon="@drawable/baseline_launch_24"
             app:key="start_manual"
             app:title="Launch" />

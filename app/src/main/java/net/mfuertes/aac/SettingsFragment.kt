@@ -1,23 +1,19 @@
 package net.mfuertes.aac
 
-import android.app.AlertDialog
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.preference.*
 import net.mfuertes.aac.helpers.BluetoothHandler
-import net.mfuertes.aac.helpers.WifiClientHandler
-import net.mfuertes.aac.receivers.BluetoothReceiver
-import net.mfuertes.aac.services.AAWirelessClientService
+import net.mfuertes.aac.helpers.WifiPermissionHandler
+import net.mfuertes.aac.services.WifiService
 
 class SettingsFragment : PreferenceFragmentCompat() {
     private var mBluetoothHandler: BluetoothHandler? = null
-    private var mWifiClientHandler: WifiClientHandler? = null
+    private var mWifiClientHandler: WifiPermissionHandler? = null
 
     private var mErrorIcon: Drawable? = null
     private var mDoneIcon: Drawable? = null
@@ -26,7 +22,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onAttach(context)
 
         mBluetoothHandler = BluetoothHandler(context, this)
-        mWifiClientHandler = WifiClientHandler(context, this)
+        mWifiClientHandler = WifiPermissionHandler(context, this)
     }
 
     override fun onDetach() {
@@ -48,7 +44,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
         findPreference<Preference>("start_manual")?.apply {
             setOnPreferenceClickListener {
-                context.startForegroundService(Intent(context, AAWirelessClientService::class.java))
+                context.startForegroundService(Intent(context, WifiService::class.java))
                 return@setOnPreferenceClickListener true
             }
         }

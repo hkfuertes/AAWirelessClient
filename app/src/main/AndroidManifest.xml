@@ -15,18 +15,14 @@
         android:maxSdkVersion="30" />
     <uses-permission
         android:name="android.permission.BLUETOOTH_ADMIN"
-        android:maxSdkVersion="30" />
-    <!-- <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" /> -->
+        android:maxSdkVersion="30" /> <!-- <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" /> -->
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <!-- <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /> -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> <!-- <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /> -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission
@@ -34,13 +30,10 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission
         android:name="android.permission.TETHER_PRIVILEGED"
-        tools:ignore="ProtectedPermissions" />
-
-    <!-- Required to start Android Auto on wireless client -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
-    <!-- Required to start local Android Auto on gateway, requires the app to be system app -->
-    <uses-permission android:name="android.permission.MANAGE_USB"
+        tools:ignore="ProtectedPermissions" /> <!-- Required to start Android Auto on wireless client -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- Required to start local Android Auto on gateway, requires the app to be system app -->
+    <uses-permission
+        android:name="android.permission.MANAGE_USB"
         tools:ignore="ProtectedPermissions" />
 
     <queries>
@@ -54,20 +47,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
-
-        <service android:name="net.mfuertes.aac.services.AAWirelessClientService" />
+        <service
+            android:name=".services.WifiService"
+            android:enabled="true"
+            android:exported="true"></service>
+        <service android:name=".services.AAWirelessClientService" />
 
         <receiver
-            android:name="net.mfuertes.aac.receivers.BluetoothReceiver"
-            android:exported="true"
-            android:enabled="false">
+            android:name=".receivers.BluetoothReceiver"
+            android:enabled="false"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.bluetooth.device.action.ACL_CONNECTED" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name="net.mfuertes.aac.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

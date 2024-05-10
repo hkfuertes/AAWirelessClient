@@ -24,7 +24,8 @@ android {
 
     defaultConfig {
         applicationId "net.mfuertes.aac"
-        minSdk 26
+        minSdk 29
+        //noinspection ExpiredTargetSdkVersion
         targetSdk 31
         versionCode findProperty("versionCode") ? (findProperty("versionCode") as int) : 1
         versionName findProperty("versionName") ?: "1.0.0"
